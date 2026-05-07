@@ -2,6 +2,8 @@ package br.edu.utfpr.usandosensores
 
 import android.content.Context
 import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
 import android.hardware.SensorListener
 import android.hardware.SensorManager
 import android.os.Bundle
@@ -13,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity(), SensorListener {
+class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var tvX: TextView
     private lateinit var tvY: TextView
@@ -58,11 +60,19 @@ class MainActivity : AppCompatActivity(), SensorListener {
         }
     }
 
-    override fun onAccuracyChanged(p0: Int, p1: Int) {
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
 
     }
 
-    override fun onSensorChanged(p0: Int, p1: FloatArray?) {
+    override fun onSensorChanged(valor: SensorEvent?) {
+
+        val x = valor?.values?.get(0)
+        val y = valor?.values?.get(1)
+        val z = valor?.values?.get(2)
+
+        tvX.text = x.toString()
+        tvY.text = y.toString()
+        tvZ.text = z.toString()
 
     }
 }
