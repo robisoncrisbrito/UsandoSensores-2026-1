@@ -50,6 +50,27 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if ( acelerometro != null ) {
+
+            sensorManager.registerListener(
+                this,
+                acelerometro,
+                SensorManager.SENSOR_DELAY_NORMAL
+            )
+
+        } else {
+            //nao tem o sensor
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener( this )
+    }
+
     fun btMeusSensoresOnClick(view: View) {
 
         val lista = sensorManager.getSensorList(Sensor.TYPE_ALL )
